@@ -54,7 +54,16 @@ class Heading:
 
 def parse_headings(lines: list[str]) -> list[Heading]:
     raw: list[tuple[int, int, str | None, str]] = []
+    in_block = False
     for index, line in enumerate(lines):
+        stripped = line.strip().lower()
+        if in_block:
+            if stripped.startswith("#+end_"):
+                in_block = False
+            continue
+        if stripped.startswith("#+begin_"):
+            in_block = True
+            continue
         match = HEADING_RE.match(line)
         if not match:
             continue
@@ -74,6 +83,7 @@ def parse_headings(lines: list[str]) -> list[Heading]:
         properties: dict[str, str] = {}
         in_drawer = False
         for body_line in body:
+            body_line = body_line.strip()
             if body_line == ":PROPERTIES:":
                 in_drawer = True
                 continue
@@ -127,13 +137,13 @@ def find_cycle(graph: dict[str, tuple[str, ...]]) -> list[str] | None:
 
 
 def has_field(heading: Heading, field: str) -> bool:
-    pattern = re.compile(rf"^{re.escape(field)}:\s*$", re.MULTILINE)
+    pattern = re.compile(rf"^[ \t]*{re.escape(field)}:\s*$", re.MULTILINE)
     return bool(pattern.search("\n".join(heading.body)))
 
 
 def field_text(heading: Heading, field: str) -> str:
-    start = re.compile(rf"^{re.escape(field)}:\s*$")
-    next_field = re.compile(r"^[A-Z][A-Za-z ]+:\s*$")
+    start = re.compile(rf"^[ \t]*{re.escape(field)}:\s*$")
+    next_field = re.compile(r"^[ \t]*[A-Z][A-Za-z ]+:\s*$")
     collecting = False
     collected: list[str] = []
     for line in heading.body:
@@ -247,10 +257,13 @@ def validate(path: Path) -> tuple[list[str], list[str], dict[str, int]]:
         if heading.is_phase:
             continue
         required_fields = ["Result", "Steps", "Proof", "Done when"]
-        if heading.is_gate or heading.is_final_audit:
-            required_fields.append("Feedback")
         if heading.is_gate:
-            required_fields.append("Replan")
+            review_fields = ["Expected", "Feedback", "Replan"]
+        elif heading.is_final_audit:
+            review_fields = ["Feedback"]
+        else:
+            review_fields = []
+        required_fields.extend(review_fields)
         missing_fields = [
             field
             for field in required_fields
@@ -261,29 +274,23 @@ def validate(path: Path) -> tuple[list[str], list[str], dict[str, int]]:
                 f"line {heading.line}: {heading.task_id or heading.title} is "
                 "missing " + ", ".join(missing_fields)
             )
-        if heading.is_gate or heading.is_final_audit:
-            feedback = field_text(heading, "Feedback")
-            if has_field(heading, "Feedback") and not feedback:
-                warnings.append(
+        for field in review_fields:
+            if not has_field(heading, field):
+                continue
+            text = field_text(heading, field)
+            if not text:
+                message = (
                     f"line {heading.line}: "
-                    f"{heading.task_id or heading.title} has empty Feedback"
+                    f"{heading.task_id or heading.title} has empty {field}"
                 )
-            if heading.state == "DONE" and "{{" in feedback:
+                if heading.state == "DONE":
+                    errors.append(message)
+                else:
+                    warnings.append(message)
+            elif heading.state == "DONE" and "{{" in text:
                 errors.append(
                     f"line {heading.line}: completed check still has "
-                    "placeholder Feedback"
-                )
-        if heading.is_gate:
-            replan = field_text(heading, "Replan")
-            if has_field(heading, "Replan") and not replan:
-                warnings.append(
-                    f"line {heading.line}: "
-                    f"{heading.task_id or heading.title} has empty Replan"
-                )
-            if heading.state == "DONE" and "{{" in replan:
-                errors.append(
-                    f"line {heading.line}: completed check still has "
-                    "placeholder Replan"
+                    f"placeholder {field}"
                 )
 
     metrics = {

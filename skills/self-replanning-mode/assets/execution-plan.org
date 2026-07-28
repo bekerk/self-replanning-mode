@@ -21,8 +21,10 @@ Work in this loop:
 - Fill in =OWNER= when taking a task.
 - Check =DEPENDS= before moving a task to NEXT.
 - If an approach keeps failing, stop and revise the remaining plan.
-- Fill in =Feedback:= at every phase check.
-- Fill in =Replan:= after reconsidering every unfinished phase and task.
+- Write =Expected:= in each phase check while it is still a prediction.
+- Fill in =Feedback:= at every phase check, comparing against =Expected=.
+- Fill in =Replan:=; match its depth to the gap between =Expected= and what
+  happened. A premortem line is required either way.
 - Do not finish a phase before its check passes.
 
 * Goal and rules
@@ -132,11 +134,15 @@ Proof:
 
 - [ ] Recorded answers and request-to-gap list.
 
+Expected:
+
+- {{WHAT_SHOULD_BE_TRUE_IF_THE_PLAN_IS_RIGHT}}
+
 Feedback:
 
 - What happened: {{ACTUAL_RESULT}}
-- What worked: {{WORKED}}
-- What did not: {{DID_NOT_WORK}}
+- Difference from expected: {{GAP_OR_NONE}}
+- Why: {{CAUSE_OR_NONE}}
 - What we learned: {{LEARNED}}
 - Changes to remaining tasks: {{PLAN_CHANGES}}
 
@@ -146,6 +152,7 @@ Replan:
 - Changed: {{REVISED_FUTURE_WORK}}
 - Added: {{NEW_FUTURE_WORK}}
 - Cancelled: {{OBSOLETE_FUTURE_WORK_AND_WHY}}
+- Premortem: {{MOST_LIKELY_CAUSE_IF_THE_NEXT_PHASE_FAILS}}
 - Next ready task: {{NEXT_READY_TASK}}
 
 Done when:
@@ -206,11 +213,15 @@ Proof:
 
 - [ ] Combined good, bad, and failure-case results.
 
+Expected:
+
+- {{WHAT_SHOULD_BE_TRUE_IF_THE_PLAN_IS_RIGHT}}
+
 Feedback:
 
 - What happened: {{ACTUAL_RESULT}}
-- What worked: {{WORKED}}
-- What did not: {{DID_NOT_WORK}}
+- Difference from expected: {{GAP_OR_NONE}}
+- Why: {{CAUSE_OR_NONE}}
 - What we learned: {{LEARNED}}
 - Changes to remaining tasks: {{PLAN_CHANGES}}
 
@@ -220,6 +231,7 @@ Replan:
 - Changed: {{REVISED_FUTURE_WORK}}
 - Added: {{NEW_FUTURE_WORK}}
 - Cancelled: {{OBSOLETE_FUTURE_WORK_AND_WHY}}
+- Premortem: {{MOST_LIKELY_CAUSE_IF_THE_NEXT_PHASE_FAILS}}
 - Next ready task: {{NEXT_READY_TASK}}
 
 Done when:
@@ -280,11 +292,15 @@ Proof:
 
 - [ ] Start-to-finish check and notes for using and supporting it.
 
+Expected:
+
+- {{WHAT_SHOULD_BE_TRUE_IF_THE_PLAN_IS_RIGHT}}
+
 Feedback:
 
 - What happened: {{ACTUAL_RESULT}}
-- What worked: {{WORKED}}
-- What did not: {{DID_NOT_WORK}}
+- Difference from expected: {{GAP_OR_NONE}}
+- Why: {{CAUSE_OR_NONE}}
 - What we learned: {{LEARNED}}
 - Changes to remaining tasks: {{PLAN_CHANGES}}
 
@@ -294,6 +310,7 @@ Replan:
 - Changed: {{REVISED_FUTURE_WORK}}
 - Added: {{NEW_FUTURE_WORK}}
 - Cancelled: {{OBSOLETE_FUTURE_WORK_AND_WHY}}
+- Premortem: {{MOST_LIKELY_CAUSE_IF_THE_NEXT_PHASE_FAILS}}
 - Next ready task: {{NEXT_READY_TASK}}
 
 Done when:
@@ -381,11 +398,15 @@ Proof:
 
 - [ ] Full checks, safety review, recovery proof, and named owners.
 
+Expected:
+
+- {{WHAT_SHOULD_BE_TRUE_IF_THE_PLAN_IS_RIGHT}}
+
 Feedback:
 
 - What happened: {{ACTUAL_RESULT}}
-- What worked: {{WORKED}}
-- What did not: {{DID_NOT_WORK}}
+- Difference from expected: {{GAP_OR_NONE}}
+- Why: {{CAUSE_OR_NONE}}
 - What we learned: {{LEARNED}}
 - Changes to remaining tasks: {{PLAN_CHANGES}}
 
@@ -395,6 +416,7 @@ Replan:
 - Changed: {{REVISED_FUTURE_WORK}}
 - Added: {{NEW_FUTURE_WORK}}
 - Cancelled: {{OBSOLETE_FUTURE_WORK_AND_WHY}}
+- Premortem: {{MOST_LIKELY_CAUSE_IF_THE_NEXT_PHASE_FAILS}}
 - Next ready task: {{NEXT_READY_TASK}}
 
 Done when:
@@ -460,5 +482,6 @@ Done when:
 - Do not change unrelated user work.
 - Use small checks while working.
 - Record Proof before marking DONE.
-- After every phase, reconsider all unfinished work, validate the revised plan,
-  and continue from the next ready task.
+- After every phase, compare the result with =Expected=, replan the unfinished
+  work to match the gap, validate the revised plan, and continue from the next
+  ready task.

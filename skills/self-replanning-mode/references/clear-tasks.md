@@ -79,10 +79,10 @@ sense as one complete change.
 
 Use simple sizes:
 
-- S — one small, clear area;
-- M — several related changes;
-- L — several areas or failure cases;
-- XL — too large to start without checking whether it should be split.
+- S: one small, clear area;
+- M: several related changes;
+- L: several areas or failure cases;
+- XL: too large to start without checking whether it should be split.
 
 ## Linking tasks
 
@@ -117,22 +117,36 @@ A phase should leave the project in a clearly better or safer state.
 Each phase needs:
 
 1. A result.
-2. Tasks that create it.
-3. A =Phase N check= that tests the combined result.
-4. Feedback about what happened and what changes next.
-5. Later tasks linked to that check.
+2. An =Expected= line written before the work starts.
+3. Tasks that create the result.
+4. A =Phase N check= that tests the combined result against =Expected=.
+5. Feedback about what happened and what changes next.
+6. Later tasks linked to that check.
 
 Use this shape:
 
 #+begin_src org
+Expected:
+
+- {{WHAT_SHOULD_BE_TRUE_IF_THE_PLAN_IS_RIGHT}}
+
 Feedback:
 
 - What happened: {{ACTUAL_RESULT}}
-- What worked: {{WORKED}}
-- What did not: {{DID_NOT_WORK}}
+- Difference from expected: {{GAP_OR_NONE}}
+- Why: {{CAUSE_OR_NONE}}
 - What we learned: {{LEARNED}}
 - Changes to remaining tasks: {{PLAN_CHANGES}}
 #+end_src
+
+Write =Expected= while it is still a prediction; if it is written after the
+result, it checks nothing. The gap between =Expected= and what happened sets
+the depth of the replan: a surprise means reconsidering all unfinished work, a
+match means confirming it still fits and saying why.
+
+End every =Replan= with a premortem line: assume the next phase has already
+failed and name the most likely cause. When that cause is worth removing now,
+add or change the work that removes it.
 
 Do not write a diary. Record feedback when it changes what is known, changes
 the remaining work, or gives a useful lesson for another project.

@@ -1,0 +1,85 @@
+#+TODO: TODO(t) NEXT(n) BLOCKED(b@) REVIEW(r) | DONE(d!) CANCELLED(c@)
+* How to use this plan
+* Goal and rules
+* What is true now
+* Open questions
+* Order of work
+* TODO Phase 1 - build the thing
+:PROPERTIES:
+:ID: PLAN-P1
+:END:
+** TODO Build the thing
+:PROPERTIES:
+:ID: PLAN-010
+:END:
+Result:
+
+- The thing exists.
+
+Steps:
+
+- [ ] Build it.
+
+Proof:
+
+- [ ] Output of the build command.
+
+Done when:
+
+- [ ] The thing builds cleanly.
+
+** DONE Phase 1 check
+:PROPERTIES:
+:ID: PLAN-019
+:DEPENDS: PLAN-010
+:END:
+Result:
+
+- The phase result holds together.
+
+Steps:
+
+- [ ] Review the combined result.
+
+Proof:
+
+- [ ] Combined check output.
+
+Expected:
+
+- The thing builds and runs.
+
+Feedback:
+
+
+Replan:
+
+
+Done when:
+
+- [ ] The remaining plan matches what we learned.
+
+* TODO Final check
+:PROPERTIES:
+:ID: PLAN-099
+:DEPENDS: PLAN-019
+:END:
+Result:
+
+- Every request is proven complete.
+
+Steps:
+
+- [ ] Check every request.
+
+Proof:
+
+- [ ] Request-to-proof list.
+
+Feedback:
+
+- What should be reused: pending
+
+Done when:
+
+- [ ] Every request is met.

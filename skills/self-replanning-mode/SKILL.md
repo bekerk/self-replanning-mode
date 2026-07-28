@@ -55,7 +55,7 @@ The Org file must include:
 - the goal, rules, current facts, and open questions;
 - the order of work, phases, first ten tasks, and a before-and-after map;
 - =Result=, =Steps=, =Proof=, and =Done when= for every task;
-- a check, =Feedback=, and =Replan= at the end of each phase;
+- a check at the end of each phase with =Expected=, =Feedback=, and =Replan=;
 - a final check covering every user request.
 
 ## 1. Understand the problem
@@ -73,11 +73,11 @@ Ask:
 
 Label important statements:
 
-- =Known= — checked now.
-- =Older information= — true before, but not checked now.
-- =Assumption= — useful, but not yet checked.
-- =Idea= — a suggested future choice.
-- =Question= — someone must decide before related work can start.
+- =Known=: checked now.
+- =Older information=: true before, but not checked now.
+- =Assumption=: useful, but not yet checked.
+- =Idea=: a suggested future choice.
+- =Question=: someone must decide before related work can start.
 
 Done when every user request is listed, every important statement has the
 right label, and ideas are not presented as facts.
@@ -112,12 +112,17 @@ Use task IDs to show these links. The order must not contain a loop.
 Split a task when different people can do the parts, one part can fail alone,
 or each part needs different proof. Keep a short test-and-fix loop together.
 
+Write =Expected= in every phase check while the plan is still a prediction:
+what should be true after the phase if the plan is right. The phase review
+compares the result against this line, so it must be written before the work,
+not after.
+
 Use the Org states and task fields from the template. Read
 =references/clear-tasks.md= when tasks feel vague, too large, or badly ordered.
 
 Done when every request appears in a task and the final check, every task has a
-unique ID and all four fields, the links contain no loop, and no risky step
-comes before its safety proof.
+unique ID and all four fields, every phase check states its =Expected= outcome,
+the links contain no loop, and no risky step comes before its safety proof.
 
 ## 3. Carry out the plan
 
@@ -152,10 +157,12 @@ Before writing =Feedback= or =Replan=, synchronize the plan's present tense:
 - remove statements that still describe completed proof as missing;
 - check that task and phase states agree with the current facts.
 
-Each phase check must include =Feedback:= answering:
+Each phase check must include =Feedback:= comparing the result with the
+=Expected= line written before the phase:
 
 - What happened?
-- What worked and what did not?
+- How does it differ from what was expected?
+- Why is there a difference?
 - What did we learn?
 - Which facts, questions, or remaining tasks must change?
 
@@ -164,17 +171,23 @@ Then write =Replan:= that accounts for the whole unfinished plan:
 - keep the original goal, user requests, and rules unless the user changes
   them;
 - preserve completed work, its proof, and cancellation reasons as history;
-- reconsider every unfinished question, phase, task, dependency, order, and
+- let the gap set the depth: when the result differs from =Expected=,
+  reconsider every unfinished question, phase, task, dependency, order, and
   required proof, including work not directly affected by the last phase;
+  when the result matches =Expected=, confirm that the unfinished plan still
+  fits the evidence and record why it stands;
 - record what was kept, changed, added, or cancelled and name the next ready
   task;
+- answer the premortem: assume the next phase has already failed and name the
+  most likely cause; when that cause is worth removing now, add or change the
+  work that removes it;
 - keep an ID when the task still means the same thing; use a new ID when its
   meaning changes materially;
 - rebuild the unfinished order and dependencies, then validate the Org file.
 
-Do not force a change merely to make the replan look active. If all unfinished
-work remains valid, say that it was reconsidered and why it still fits the
-current evidence.
+Do not force a change merely to make the replan look active. When the result
+matches =Expected=, still record that the unfinished work was reconsidered and
+why it fits the current evidence.
 
 When the user asked for execution, continue automatically from the first ready
 task after validation. Pause when the new plan requires a user decision, wider
@@ -218,8 +231,8 @@ python3 scripts/validate_org_plan.py --strict --emacs-lint PATH_TO_PLAN.org
 #+end_src
 
 Fix every error and warning. Done when IDs and task links are valid, every
-phase has a check, feedback, and replan, every task has all four fields, the
-final check exists, and Org lint passes when available.
+phase has a check with =Expected=, =Feedback=, and =Replan=, every task has all
+four fields, the final check exists, and Org lint passes when available.
 
 ## Hand over the plan
 
@@ -248,7 +261,7 @@ Propose the exact change and wait for approval before editing this skill.
 Skill update proposal:
   File: <file to change>
   Trigger: <what went wrong>
-  Tested: yes — <proof> | no — <reason>
+  Tested: yes (<proof>) | no (<reason>)
   Removes content: no | yes
   Change: <exact change>
 #+end_example
