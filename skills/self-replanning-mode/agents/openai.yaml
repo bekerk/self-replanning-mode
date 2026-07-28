@@ -1,0 +1,4 @@
+interface:
+  display_name: "Self-Replanning Mode"
+  short_description: "Replan unfinished work after every phase"
+  default_prompt: "Use $self-replanning-mode to create or execute an plan that reconstructs unfinished work from phase evidence."
