@@ -1,5 +1,9 @@
 # self-replanning mode
 
+<div align="center">
+    <img src="./assets/img.png" width="300" />
+</div>
+
 Replan a plan that has been planned, then plan to replan it when everything goes exactly as unplanned.
 
 OR A skill for creating, carrying out, and replanning clear plans.
