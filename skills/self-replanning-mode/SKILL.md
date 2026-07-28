@@ -1,6 +1,6 @@
 ---
 name: self-replanning-mode
-description: "Create and execute adaptive Emacs Org-mode plans for large or uncertain work. Use when the user asks for a step-by-step plan, roadmap, implementation or migration plan, task list, or .org file, or wants to carry out or revise one. Verify each phase, reconstruct all unfinished work from current evidence, validate the revised plan, and continue when authorized."
+description: "Create and execute adaptive plans for large or uncertain work. Use when the user asks for a step-by-step plan, roadmap, implementation or migration plan, task list, or .org file, or wants to carry out or revise one. Verify each phase, reconstruct all unfinished work from current evidence, validate the revised plan, and continue when authorized."
 ---
 
 # Work Through a Self-Replanning Org Plan
