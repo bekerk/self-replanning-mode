@@ -17,7 +17,8 @@ It works in a loop:
 
 The generated plan records current facts, open questions, task order, proof,
 phase feedback, whole-future replans, and a final check against the original
-request.
+request. By default, it lives in the repository root and is added to
+`.git/info/exclude`.
 
 ## Tests
 
@@ -35,4 +36,3 @@ npx skills add bekerk/self-replanning-mode --list
 # Install interactively into the current project
 npx skills add bekerk/self-replanning-mode --skill self-replanning-mode
 ```
-

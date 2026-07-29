@@ -43,9 +43,8 @@ and continue when the user asked for execution.
 Start from =assets/execution-plan.org=. Change it to fit the work; do not keep
 sections that add no value.
 
-Use the path chosen by the user. If none was given, use the project's normal
-plan folder. If there is no such folder, write
-=<goal-name>-execution-plan.org= in the current folder.
+Unless the user specifies otherwise, write =<goal-name>-execution-plan.org= in
+the repository root and add it to =.git/info/exclude=.
 
 Do not write an ADR, PRD, issue set, or Markdown plan unless the user asks for
 one.
