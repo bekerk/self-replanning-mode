@@ -27,10 +27,14 @@ python3 tests/run.py            # run
 python3 tests/run.py --update   # regenerate the .stdout files
 ```
 
-## Install
+## Install / Update
 
 ```bash
-npx skills add bekerk/self-replanning-mode --skill self-replanning-mode
+# Install skill
+npx skills add bekerk/self-replanning-mode
+
+# Update skill
+npx skills update self-replanning-mode
 ```
 
 ## References
