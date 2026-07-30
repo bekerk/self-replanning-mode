@@ -103,8 +103,11 @@ links merely to force teams into a preferred calendar order.
 
 ## Carrying out a task
 
-Take the first task whose required earlier work is done. Check each step while
-doing it and attach the named proof.
+Take the first task whose required earlier work is done. Use the smallest check
+that proves its result, and reuse proof that is still current.
+
+Repetition is direct proof for flakiness, performance, or recovery, not a
+default completion ritual.
 
 If the approach keeps failing, do not keep repeating it merely because it is in
 the plan. Record the failure, check what changed, and revise or replace the
@@ -143,10 +146,6 @@ Write =Expected= while it is still a prediction; if it is written after the
 result, it checks nothing. The gap between =Expected= and what happened sets
 the depth of the replan: a surprise means reconsidering all unfinished work, a
 match means confirming it still fits and saying why.
-
-End every =Replan= with a premortem line: assume the next phase has already
-failed and name the most likely cause. When that cause is worth removing now,
-add or change the work that removes it.
 
 Do not write a diary. Record feedback when it changes what is known, changes
 the remaining work, or gives a useful lesson for another project.

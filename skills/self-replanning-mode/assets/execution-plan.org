@@ -11,7 +11,7 @@ Work in this loop:
 
 1. Understand the problem.
 2. Make the plan.
-3. Carry it out, checking each step.
+3. Carry it out with the smallest useful checks.
 4. Reconstruct all unfinished work from the evidence, validate it, and continue.
 
 - Change a task with =C-c C-t=.
@@ -24,7 +24,9 @@ Work in this loop:
 - Write =Expected:= in each phase check while it is still a prediction.
 - Fill in =Feedback:= at every phase check, comparing against =Expected=.
 - Fill in =Replan:=; match its depth to the gap between =Expected= and what
-  happened. A premortem line is required either way.
+  happened.
+- Remove Phase 2 and make Final check depend on Phase 1 check when Phase 1
+  proves the whole goal.
 - Do not finish a phase before its check passes.
 
 * Goal and rules
@@ -45,155 +47,46 @@ Rules that must not be broken:
 
 * Open questions
 
-** TODO Answer {{QUESTION}}
-:PROPERTIES:
-:ID: PLAN-001
-:SIZE: S
-:OWNER:
-:END:
-
-Result:
-
-- The work that depends on this answer can start.
-
-Steps:
-
-- [ ] List the realistic choices.
-- [ ] Name the person who decides.
-- [ ] Record the answer and important rejected choices.
-
-Proof:
-
-- [ ] Current requirement or recorded owner decision.
-
-Done when:
-
-- [ ] Related tasks point to PLAN-001.
-- [ ] No later task silently makes a different choice.
+- {{QUESTION_OR_NONE}}
 
 * Order of work
 
 1. Answer questions that stop later work.
-2. Learn what is true now.
-3. Build the shared basics.
-4. Prove one real example from start to finish.
-5. Cover the remaining cases.
-6. Practice moving existing work and undoing the change.
-7. Make the live change in small steps.
-8. Run the final check.
+2. Prove one representative path from start to finish.
+3. Check the result and rebuild the unfinished plan.
+4. Complete the remaining agreed scope.
+5. Check the combined result and run the final check.
 
-* TODO Phase 0 - Answer questions and check the current state :research:
-:PROPERTIES:
-:ID: PLAN-P0
-:ORDERED: t
-:END:
-
-** TODO Check the current state
-:PROPERTIES:
-:ID: PLAN-010
-:SIZE: M
-:DEPENDS: PLAN-001
-:OWNER:
-:END:
-
-Result:
-
-- Every user request has a clear starting point and known gap.
-
-Steps:
-
-- [ ] Read every named source.
-- [ ] Separate Known facts, Older information, Assumptions, Ideas, and
-      Questions.
-- [ ] Match each user request to a gap.
-
-Proof:
-
-- [ ] A source list with files, commands, records, or links.
-
-Done when:
-
-- [ ] Every request has current proof.
-- [ ] No Idea is presented as Known.
-
-** TODO Phase 0 check
-:PROPERTIES:
-:ID: PLAN-019
-:DEPENDS: PLAN-001 PLAN-010
-:END:
-
-Result:
-
-- The scope is clear enough to begin.
-
-Steps:
-
-- [ ] Review the open questions and current proof.
-
-Proof:
-
-- [ ] Recorded answers and request-to-gap list.
-
-Expected:
-
-- {{WHAT_SHOULD_BE_TRUE_IF_THE_PLAN_IS_RIGHT}}
-
-Feedback:
-
-- What happened: {{ACTUAL_RESULT}}
-- Difference from expected: {{GAP_OR_NONE}}
-- Why: {{CAUSE_OR_NONE}}
-- What we learned: {{LEARNED}}
-- Changes to remaining tasks: {{PLAN_CHANGES}}
-
-Replan:
-
-- Kept: {{UNCHANGED_FUTURE_WORK_AND_WHY}}
-- Changed: {{REVISED_FUTURE_WORK}}
-- Added: {{NEW_FUTURE_WORK}}
-- Cancelled: {{OBSOLETE_FUTURE_WORK_AND_WHY}}
-- Premortem: {{MOST_LIKELY_CAUSE_IF_THE_NEXT_PHASE_FAILS}}
-- Next ready task: {{NEXT_READY_TASK}}
-
-Done when:
-
-- [ ] No unanswered question can invalidate Phase 1.
-- [ ] The remaining plan matches what we learned.
-
-* TODO Phase 1 - Build the shared basics :build:testing:
+* TODO Phase 1 - Prove one representative path :build:testing:
 :PROPERTIES:
 :ID: PLAN-P1
 :ORDERED: t
-:DEPENDS: PLAN-019
 :END:
 
-** TODO Build {{BASIC_CAPABILITY}}
+** TODO Complete {{REPRESENTATIVE_CASE}} from start to finish
 :PROPERTIES:
 :ID: PLAN-020
 :SIZE: M
-:DEPENDS: PLAN-019
 :OWNER:
 :END:
 
 Result:
 
-- {{RESULT}}
+- One representative case proves the chosen approach.
 
 Steps:
 
-- [ ] Write a check that fails before the change.
-- [ ] Make the smallest complete change.
-- [ ] Clean it up while keeping the check green.
+- [ ] Make the smallest complete change for the case.
+- [ ] Check its important success and failure behavior.
 
 Proof:
 
 - [ ] Focused test or direct observation.
-- [ ] Relevant changed files or produced artifact.
 
 Done when:
 
-- [ ] {{GOOD_CASE}}
-- [ ] {{BAD_CASE}}
+- [ ] The case works without hidden manual steps.
+- [ ] {{DONE_CONDITION}}
 
 ** TODO Phase 1 check
 :PROPERTIES:
@@ -203,15 +96,15 @@ Done when:
 
 Result:
 
-- Later work can safely use the shared basics.
+- The representative path is proven as a whole.
 
 Steps:
 
-- [ ] Test the pieces together.
+- [ ] Check the combined result.
 
 Proof:
 
-- [ ] Combined good, bad, and failure-case results.
+- [ ] Combined result for the representative case.
 
 Expected:
 
@@ -231,22 +124,21 @@ Replan:
 - Changed: {{REVISED_FUTURE_WORK}}
 - Added: {{NEW_FUTURE_WORK}}
 - Cancelled: {{OBSOLETE_FUTURE_WORK_AND_WHY}}
-- Premortem: {{MOST_LIKELY_CAUSE_IF_THE_NEXT_PHASE_FAILS}}
 - Next ready task: {{NEXT_READY_TASK}}
 
 Done when:
 
-- [ ] Later work no longer relies on an unchecked assumption.
+- [ ] The representative path matches current evidence.
 - [ ] The remaining plan matches what we learned.
 
-* TODO Phase 2 - Prove one real example :build:testing:
+* TODO Phase 2 - Complete the remaining agreed scope :build:testing:
 :PROPERTIES:
 :ID: PLAN-P2
 :ORDERED: t
 :DEPENDS: PLAN-029
 :END:
 
-** TODO Complete one example from start to finish
+** TODO Complete {{REMAINING_SCOPE}}
 :PROPERTIES:
 :ID: PLAN-030
 :SIZE: L
@@ -256,23 +148,21 @@ Done when:
 
 Result:
 
-- One real case proves the full path.
+- The proven approach covers the remaining agreed scope.
 
 Steps:
 
-- [ ] Choose a normal, useful example.
-- [ ] Complete it from start to finish.
-- [ ] Check failure, retry, and recovery.
-- [ ] Record what should be reused for later cases.
+- [ ] Apply the approach to the remaining required cases in coherent groups.
+- [ ] Update the plan if a group changes an assumption.
 
 Proof:
 
-- [ ] Start-to-finish result and failure results.
+- [ ] Focused checks for changed cases plus still-current Phase 1 proof.
 
 Done when:
 
-- [ ] The example works without hidden manual steps.
-- [ ] Repeating it is safe or clearly rejected.
+- [ ] Every agreed case is covered.
+- [ ] {{DONE_CONDITION}}
 
 ** TODO Phase 2 check
 :PROPERTIES:
@@ -282,15 +172,15 @@ Done when:
 
 Result:
 
-- The approach is proven by a real case.
+- The full agreed scope is proven together.
 
 Steps:
 
-- [ ] Review the full path and remaining risks.
+- [ ] Check every user request against the combined result.
 
 Proof:
 
-- [ ] Start-to-finish check and notes for using and supporting it.
+- [ ] {{PHASE_PROOF}}
 
 Expected:
 
@@ -310,124 +200,17 @@ Replan:
 - Changed: {{REVISED_FUTURE_WORK}}
 - Added: {{NEW_FUTURE_WORK}}
 - Cancelled: {{OBSOLETE_FUTURE_WORK_AND_WHY}}
-- Premortem: {{MOST_LIKELY_CAUSE_IF_THE_NEXT_PHASE_FAILS}}
 - Next ready task: {{NEXT_READY_TASK}}
 
 Done when:
 
-- [ ] Broader work is based on what the example taught us.
-- [ ] The remaining plan matches what we learned.
-
-* TODO Phase 3 - Finish the work and name the owners :build:testing:docs:
-:PROPERTIES:
-:ID: PLAN-P3
-:ORDERED: t
-:DEPENDS: PLAN-039
-:END:
-
-** TODO Cover the remaining cases
-:PROPERTIES:
-:ID: PLAN-040
-:SIZE: L
-:DEPENDS: PLAN-039
-:OWNER:
-:END:
-
-Result:
-
-- The proven approach covers the full agreed scope.
-
-Steps:
-
-- [ ] Add the remaining cases in small groups.
-- [ ] Keep old behavior working or provide a clear move.
-- [ ] Add monitoring and operating instructions where needed.
-
-Proof:
-
-- [ ] Request-to-proof list.
-- [ ] Full relevant checks.
-
-Done when:
-
-- [ ] Every agreed request has working proof.
-- [ ] Failure and recovery have named owners.
-
-** TODO Practice moving existing work and undoing the change
-:PROPERTIES:
-:ID: PLAN-050
-:SIZE: L
-:DEPENDS: PLAN-040
-:OWNER:
-:END:
-
-Result:
-
-- Putting the change live and undoing it are measured, repeatable steps.
-
-Steps:
-
-- [ ] Practice on realistic data or conditions.
-- [ ] Check counts, content, and important rules.
-- [ ] Practice undoing the change.
-
-Proof:
-
-- [ ] Practice report and recovery time.
-
-Done when:
-
-- [ ] The move keeps all required information.
-- [ ] Undoing the change meets the agreed time limit.
-
-** TODO Phase 3 check
-:PROPERTIES:
-:ID: PLAN-059
-:DEPENDS: PLAN-040 PLAN-050
-:END:
-
-Result:
-
-- The change is ready to put into use and support.
-
-Steps:
-
-- [ ] Review the agreed work, safety, moving existing work, and ownership.
-
-Proof:
-
-- [ ] Full checks, safety review, recovery proof, and named owners.
-
-Expected:
-
-- {{WHAT_SHOULD_BE_TRUE_IF_THE_PLAN_IS_RIGHT}}
-
-Feedback:
-
-- What happened: {{ACTUAL_RESULT}}
-- Difference from expected: {{GAP_OR_NONE}}
-- Why: {{CAUSE_OR_NONE}}
-- What we learned: {{LEARNED}}
-- Changes to remaining tasks: {{PLAN_CHANGES}}
-
-Replan:
-
-- Kept: {{UNCHANGED_FUTURE_WORK_AND_WHY}}
-- Changed: {{REVISED_FUTURE_WORK}}
-- Added: {{NEW_FUTURE_WORK}}
-- Cancelled: {{OBSOLETE_FUTURE_WORK_AND_WHY}}
-- Premortem: {{MOST_LIKELY_CAUSE_IF_THE_NEXT_PHASE_FAILS}}
-- Next ready task: {{NEXT_READY_TASK}}
-
-Done when:
-
-- [ ] No user request depends on missing or weak proof.
+- [ ] No user request depends on missing or stale proof.
 - [ ] The remaining plan matches what we learned.
 
 * TODO Final check :testing:safety:docs:
 :PROPERTIES:
 :ID: PLAN-099
-:DEPENDS: PLAN-059
+:DEPENDS: PLAN-039
 :END:
 
 Result:
@@ -453,35 +236,5 @@ Feedback:
 Done when:
 
 - [ ] Every original request is met.
-- [ ] Every named test, move, recovery, and safety check passes.
+- [ ] The final proof is current.
 - [ ] No required work remains.
-
-* Appendix A - First ten tasks
-
-1. [ ] PLAN-001 - Answer the question that stops later work.
-2. [ ] PLAN-010 - Check the current state.
-3. [ ] PLAN-019 - Pass the first phase check.
-4. [ ] PLAN-020 - Build the shared basics.
-5. [ ] PLAN-029 - Pass the shared-basics check.
-6. [ ] PLAN-030 - Complete one real example.
-7. [ ] PLAN-039 - Pass the example check.
-8. [ ] PLAN-040 - Cover the remaining cases.
-9. [ ] PLAN-050 - Practice moving existing work and undoing the change.
-10. [ ] PLAN-059 - Pass the release check.
-
-* Appendix B - Before-and-after map
-
-| Before | After | What must change | Proof |
-|--------+-------+------------------+-------|
-| {{BEFORE}} | {{AFTER}} | {{CHANGE}} | {{PROOF}} |
-
-* Appendix C - Rules for taking a task
-
-- Read the current sources before changing anything.
-- Check =DEPENDS= before moving a task to NEXT.
-- Do not change unrelated user work.
-- Use small checks while working.
-- Record Proof before marking DONE.
-- After every phase, compare the result with =Expected=, replan the unfinished
-  work to match the gap, validate the revised plan, and continue from the next
-  ready task.

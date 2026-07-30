@@ -46,13 +46,14 @@ sections that add no value.
 Unless the user specifies otherwise, write =<goal-name>-execution-plan.org= in
 the repository root and add it to =.git/info/exclude=.
 
-Do not write an ADR, PRD, issue set, or Markdown plan unless the user asks for
-one.
+Use the Org plan as the only process artifact. Do not add a transcript, map,
+appendix, simulated patch, ADR, PRD, issue set, or Markdown plan unless the
+user asks for it or it is the requested deliverable.
 
 The Org file must include:
 
 - the goal, rules, current facts, and open questions;
-- the order of work, phases, first ten tasks, and a before-and-after map;
+- the order of work and phases;
 - =Result=, =Steps=, =Proof=, and =Done when= for every task;
 - a check at the end of each phase with =Expected=, =Feedback=, and =Replan=;
 - a final check covering every user request.
@@ -90,8 +91,8 @@ For every user request, record:
 - which task closes the gap;
 - what proof will show it is closed.
 
-Put this information in the current-state section, the before-and-after map,
-and the final check. Do not write a diary of the reasoning process.
+Put this information in the current-state section and final check. Do not write
+a diary of the reasoning process.
 
 Before inventing a new approach, check whether a related example, an earlier
 solution, a smaller version of the problem, or working backward makes the plan
@@ -108,8 +109,15 @@ Put the work in a safe order:
 
 Use task IDs to show these links. The order must not contain a loop.
 
+When a question blocks work, give the task that answers it an ID and make
+dependent tasks point to it.
+
 Split a task when different people can do the parts, one part can fail alone,
 or each part needs different proof. Keep a short test-and-fix loop together.
+
+Use the fewest phase gates that mark a real evidence, risk, or authority
+boundary. Do not add a phase only to separate technical layers or run another
+test suite.
 
 Write =Expected= in every phase check while the plan is still a prediction:
 what should be true after the phase if the plan is right. The phase review
@@ -128,8 +136,9 @@ the links contain no loop, and no risky step comes before its safety proof.
 When the user asks to do the work:
 
 - take the first task whose required earlier work is done;
-- follow its steps with care;
-- check each step and attach the named proof;
+- run the smallest current check that closes the named evidence gap;
+- broaden or repeat only when it closes a named residual risk; otherwise reuse
+  still-current proof. Completion alone is not a reason to run a broader suite;
 - keep unrelated user work unchanged;
 - mark the task DONE only when its =Done when= conditions pass.
 
@@ -177,12 +186,10 @@ Then write =Replan:= that accounts for the whole unfinished plan:
   fits the evidence and record why it stands;
 - record what was kept, changed, added, or cancelled and name the next ready
   task;
-- answer the premortem: assume the next phase has already failed and name the
-  most likely cause; when that cause is worth removing now, add or change the
-  work that removes it;
 - keep an ID when the task still means the same thing; use a new ID when its
   meaning changes materially;
-- rebuild the unfinished order and dependencies, then validate the Org file.
+- rebuild the unfinished order and dependencies, then validate the Org file
+  without rerunning unchanged project checks.
 
 Do not force a change merely to make the replan look active. When the result
 matches =Expected=, still record that the unfinished work was reconsidered and
@@ -217,17 +224,21 @@ phase check.
 
 ## Check the file
 
-Resolve paths from the folder containing this =SKILL.md=. Run:
+Resolve paths from the folder containing this =SKILL.md=. After each structural
+replan, run:
 
 #+begin_src bash
 python3 scripts/validate_org_plan.py --strict PATH_TO_PLAN.org
 #+end_src
 
-If Emacs is available, run:
+At final handoff, or after changing Org syntax, run this instead when Emacs is
+available:
 
 #+begin_src bash
 python3 scripts/validate_org_plan.py --strict --emacs-lint PATH_TO_PLAN.org
 #+end_src
+
+Do not run both commands against the same unchanged plan.
 
 Fix every error and warning. Done when IDs and task links are valid, every
 phase has a check with =Expected=, =Feedback=, and =Replan=, every task has all

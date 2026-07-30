@@ -30,9 +30,9 @@ python3 tests/run.py --update   # regenerate the .stdout files
 ## Install
 
 ```bash
-# Inspect the skill before installing it
-npx skills add bekerk/self-replanning-mode --list
-
-# Install interactively into the current project
 npx skills add bekerk/self-replanning-mode --skill self-replanning-mode
 ```
+
+## References
+
+- Pólya, G. (1988). How to solve it: A new aspect of mathematical method.
